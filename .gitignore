@@ -1,0 +1,24 @@
+# ---- 依赖 ----
+node_modules/
+
+# ---- 构建产物（./start.sh 会自动重新生成）----
+admin/dist/
+server/public/
+
+# ---- 运行时数据：数据库与每个用户的数据空间（不可提交）----
+server/data/*.db
+server/data/*.db-*
+server/data/tenants/
+server/data/*.log
+
+# ---- 日志 / 进程文件 ----
+*.log
+*.pid
+
+# ---- 环境与编辑器 ----
+.env
+.env.*
+!.env.example
+.DS_Store
+.idea/
+.vscode/
