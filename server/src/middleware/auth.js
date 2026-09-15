@@ -18,7 +18,9 @@ function isWhite(pathname) {
 }
 
 export function extractToken(req) {
-  const raw = req.headers.authorization || req.headers['x-token'] || '';
+  // 注意优先级：发布平台的入口网关会用它自己的 JWT 覆盖标准 Authorization 头，
+  // 因此自定义头 x-token 必须优先（浏览器端 request.js 同步携带 x-token）
+  const raw = req.headers['x-token'] || req.headers.authorization || '';
   return String(raw).replace(/^Bearer\s+/i, '').trim();
 }
 

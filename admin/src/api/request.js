@@ -15,8 +15,11 @@ function toLogin() {
 
 request.interceptors.request.use((cfg) => {
   const token = localStorage.getItem('token');
-  // 后端用 Authorization: Bearer <token> 识别当前是哪个账号
-  if (token) cfg.headers.Authorization = `Bearer ${token}`;
+  if (token) {
+    // 优先 x-token：发布平台的入口网关会覆盖标准 Authorization 头，自定义头可原样穿透
+    cfg.headers['x-token'] = token;
+    cfg.headers.Authorization = `Bearer ${token}`;
+  }
   return cfg;
 });
 
