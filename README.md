@@ -48,7 +48,8 @@
 ## 🚀 快速开始
 
 ```bash
-git clone <你的仓库地址> mall-ops && cd mall-ops
+git clone https://github.com/xianglouw/ecom-data-platform.git ecom-data-platform
+cd ecom-data-platform
 ./start.sh          # 自动安装依赖 → 构建前端 → 启动服务
 ```
 
