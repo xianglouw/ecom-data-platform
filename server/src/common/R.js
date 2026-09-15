@@ -1,5 +1,5 @@
 /**
- * 统一响应封装 —— 对齐 mall4j 的 ServerResponseEntity
+ * 统一响应封装
  * 成功：{ code: '00000', msg: 'success', data }
  * 失败：{ code: 'A0500', msg: '...' }
  */

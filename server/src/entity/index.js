@@ -1,9 +1,9 @@
 /**
- * 实体定义与建表 DDL —— 对齐 mall4j 的 entity 层
+ * 实体定义与建表 DDL —— entity 层
  * 商品 / 订单 / 会员 / 权限 / 系统设置 / 运营事实表
  */
 export const DDL = [
-  // 系统：用户与角色（Sa-Token 权限体系简化）
+  // 系统：用户与角色（角色模型用于菜单级权限划分）
   `CREATE TABLE IF NOT EXISTS sys_user (
     id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE, nickname TEXT,
     role_code TEXT, mobile TEXT, status INTEGER DEFAULT 1, last_login TEXT, created_at TEXT)`,
@@ -60,7 +60,7 @@ export const DDL = [
   `CREATE INDEX IF NOT EXISTS idx_of_sku ON order_finance(sku)`,
   `CREATE INDEX IF NOT EXISTS idx_of_site ON order_finance(site)`,
 
-  // 运营事实表（对齐 ecom-agent-skills：ROI 复盘 / 费率 / 运费）
+  // 运营事实表（ROI 复盘 / 费率 / 运费）
   `CREATE TABLE IF NOT EXISTS sales_daily (
     id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, campaign TEXT, sku TEXT, platform TEXT,
     site TEXT, category TEXT, impressions INTEGER, clicks INTEGER, ad_spend REAL, ad_orders INTEGER,
@@ -98,7 +98,7 @@ export const DDL = [
 
   // ------------------------------------------------------------------
   // 数据管道（ETL）—— 接入批次 / 任务定义 / 任务日志 / 指标快照
-  // 对齐 mall4j 的「数据来源可追溯 + 任务表 + 任务日志表」设计
+  // 设计要点：「数据来源可追溯 + 任务表 + 任务日志表」
   // ------------------------------------------------------------------
   `CREATE TABLE IF NOT EXISTS ingest_batch (
     id INTEGER PRIMARY KEY AUTOINCREMENT, dataset TEXT, dataset_name TEXT, file_name TEXT,
@@ -134,7 +134,7 @@ export const PIPELINE_STAGES = [
   { code: 'publish', name: '可视化发布', desc: '快照落库 / 看板就绪度' },
 ];
 
-/** 阶段与任务映射（对齐 mall4j 的 job_code 命名） */
+/** 阶段与任务映射（job_code 命名） */
 export const PIPELINE_JOBS = [
   { code: 'ingest_batch_check', name: '接入批次校验', stage: 'quality', step_no: 1, schedule_desc: '每次上传后' },
   { code: 'metric_ad_overview', name: '广告口径指标', stage: 'compute', step_no: 2, schedule_desc: '每 5 分钟检查' },

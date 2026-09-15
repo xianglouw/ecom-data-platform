@@ -7,8 +7,6 @@
 
 开箱即用的跨境电商运营后台：**注册即用、上传数据即出分析**。多账号数据物理隔离、北京时间全链路统一、ETL 指标管道自动重算，覆盖看板、销售、库存、广告、选品、订单结算与复盘周报。
 
-架构上参考 [mall4j](https://github.com/gz-yami/mall4j) 的前后端分离与 Controller / Service / Mapper / Entity 分层规范，运营分析口径（ROAS / 保本 ROAS / TACOS / 选品测算）参考 [ecom-agent-skills](https://github.com/xianglouw/ecom-agent-skills)。
-
 ## ✨ 在线体验
 
 **👉 <https://ecom-ops-admin.app.workbuddy.host/>**

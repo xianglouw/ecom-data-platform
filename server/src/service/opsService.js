@@ -1,5 +1,5 @@
 /**
- * 运营分析服务 —— 对齐 ecom-agent-skills 的 ROI 复盘 / 选品测算 / 保本 ROAS
+ * 运营分析服务 —— ROI 复盘 / 选品测算 / 保本 ROAS
  * 指标口径：ROAS、ACOS、TACOS、净利毛估、保本 ROAS、保本价、目标价
  */
 import { mappers, db } from '../mapper/index.js';

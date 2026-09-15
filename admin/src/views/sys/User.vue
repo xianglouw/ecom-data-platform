@@ -35,7 +35,7 @@
             <el-table-column prop="remark" label="说明" min-width="150" />
           </el-table>
           <div class="muted" style="margin-top:8px">
-            真实项目使用 Sa-Token 做登录鉴权与菜单级权限控制；此处为演示的角色模型。
+            角色模型用于菜单级权限划分；登录鉴权见手机号 + 验证码流程。
           </div>
         </div>
       </el-col>

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "电商商城后台 + 运营数据平台 后端（Controller / Service / Mapper 分层，对齐 mall4j 工程结构）",
+  "description": "电商商城后台 + 运营数据平台 后端（Controller / Service / Mapper 分层）",
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",

@@ -1,5 +1,5 @@
 /**
- * 数据库连接与通用 Mapper —— 对齐 mall4j 的 Mapper 持久层
+ * 数据库连接与通用 Mapper —— 持久层
  * 提供 list / one / page / insert / update / deleteById 等通用能力
  *
  * 多租户：db 不再指向单一连接，而是一个按请求上下文路由的 Proxy。

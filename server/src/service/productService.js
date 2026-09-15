@@ -1,4 +1,4 @@
-/** 商品服务 —— 对齐 mall4j 商品管理（SPU + SKU + 上下架） */
+/** 商品服务 —— 商品管理（SPU + SKU + 上下架） */
 import { mappers } from '../mapper/index.js';
 import { BizError } from '../common/R.js';
 import { bjNow } from '../common/datetime.js';

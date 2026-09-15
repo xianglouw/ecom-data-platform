@@ -1,4 +1,4 @@
-/** 订单服务 —— 对齐 mall4j 订单管理（列表 / 详情 / 发货状态流转 / 统计） */
+/** 订单服务 —— 订单管理（列表 / 详情 / 发货状态流转 / 统计） */
 import { mappers, db } from '../mapper/index.js';
 import { BizError } from '../common/R.js';
 import { ORDER_STATUS } from '../entity/index.js';

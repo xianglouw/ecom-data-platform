@@ -1,4 +1,4 @@
-/** 会员服务 —— 对齐 mall4j 会员管理 */
+/** 会员服务 —— 会员管理 */
 import { mappers } from '../mapper/index.js';
 import { BizError } from '../common/R.js';
 import { SETTING_DEFAULTS } from '../entity/index.js';
