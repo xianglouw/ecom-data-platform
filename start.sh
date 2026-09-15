@@ -63,7 +63,7 @@ print('服务已启动 pid', p.pid)
 
 sleep 2
 if curl -s --noproxy '*' -o /dev/null -w "%{http_code}" http://127.0.0.1:8800/ | grep -q 200; then
-  echo "✅ 已就绪 -> http://127.0.0.1:8800  (账号 admin / 123456)"
+  echo "✅ 已就绪 -> http://127.0.0.1:8800  (点「先逛逛演示账号」可直接体验)"
 else
   echo "❌ 启动异常，请查看日志: $LOG_FILE"
 fi
