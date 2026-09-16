@@ -9,7 +9,7 @@
 
 ## ✨ 在线体验
 
-**👉 <https://ecom-ops-admin.app.workbuddy.host/>**
+**👉 <https://ecom-data-platform.app.workbuddy.host/>**
 
 打开登录页后点「**先逛逛演示账号（含示例数据，无需注册）**」，即可直接进入带完整示例数据的系统；也可以用手机号 + 验证码注册一个**只属于你的空白数据空间**（演示环境验证码直接显示在页面上）。
 

@@ -18,7 +18,7 @@ export default {
   port: Number(process.env.PORT) || 8800,
   host: process.env.HOST || '0.0.0.0',
   // 平台库：只存账号 / 验证码 / 令牌等平台级数据
-  dbPath: process.env.DB_PATH || path.resolve(ROOT, 'data/ecom-admin.db'),
+  dbPath: process.env.DB_PATH || path.resolve(ROOT, 'data/ecom-data-platform.db'),
   // 数据根目录；每个注册用户的业务库放在 dataDir/tenants/u_<id>.db
   dataDir: process.env.DATA_DIR || path.resolve(ROOT, 'data'),
   uploadDir: process.env.UPLOAD_DIR || path.resolve(ROOT, 'data'),

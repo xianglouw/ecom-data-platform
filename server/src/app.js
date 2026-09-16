@@ -3,7 +3,7 @@
  * 前后端分离结构，为单机可跑：后端 8800 同时提供 API 与静态资源
  *
  * 数据分层：
- *   平台库 data/ecom-admin.db      —— 账号、验证码、登录令牌、角色
+ *   平台库 data/ecom-data-platform.db  —— 账号、验证码、登录令牌、角色
  *   业务库 data/tenants/u_<id>.db  —— 每个注册用户一个，注册时创建且业务数据为空
  */
 import express from 'express';
