@@ -82,6 +82,15 @@ router.get('/ops/meta', c.opsController.meta);
 router.get('/ops/quarantine', c.opsController.quarantine);
 router.get('/ops/inventory', c.opsController.inventory);
 
+// ---- 增长中枢：SKU 主线（选品研究 → 商品链接 → 达人建联 → 素材库 → 视频发布）----
+router.get('/growth/meta', c.growthController.meta);
+router.get('/growth/overview', c.growthController.overview);
+router.get('/growth/sku/:code/chain', c.growthController.chain);
+router.get('/growth/:module/page', c.growthController.page);
+router.post('/growth/:module', c.growthController.create);
+router.put('/growth/:module/:id', c.growthController.update);
+router.delete('/growth/:module/:id', c.growthController.remove);
+
 // 数据现状与数据治理：库里有什么、哪些是演示数据、一键清空
 router.get('/data/state', (req, res) => res.json(R.ok(dataService.state())));
 router.post('/data/reset', async (req, res) => {

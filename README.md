@@ -5,7 +5,7 @@
 [![Vue](https://img.shields.io/badge/Vue-3-4FC08D?logo=vuedotjs&logoColor=white)](https://vuejs.org)
 [![Element Plus](https://img.shields.io/badge/Element_Plus-2-409EFF)](https://element-plus.org)
 
-开箱即用的跨境电商运营后台：**注册即用、上传数据即出分析**。多账号数据物理隔离、北京时间全链路统一、ETL 指标管道自动重算，覆盖看板、销售、库存、广告、选品、订单结算与复盘周报。
+开箱即用的跨境电商运营后台：**注册即用、上传数据即出分析**。多账号数据物理隔离、北京时间全链路统一、ETL 指标管道自动重算，覆盖看板、销售、库存、广告、选品、订单结算与复盘周报；并以 SKU 为主线提供**增长中枢**：选品研究 → 商品链接 → 达人建联 → 素材库 → 视频发布，销售 / 广告 / 库存数据自动回流到每个 SKU（详见 [docs/automation-roadmap.md](docs/automation-roadmap.md)）。
 
 ## ✨ 在线体验
 

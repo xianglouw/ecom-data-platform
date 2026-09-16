@@ -124,6 +124,47 @@ export const DDL = [
   `CREATE INDEX IF NOT EXISTS idx_metric_code ON metric_snapshot(metric_code, period)`,
   `CREATE INDEX IF NOT EXISTS idx_job_log_code ON etl_job_log(job_code, created_at)`,
   `CREATE INDEX IF NOT EXISTS idx_batch_dataset ON ingest_batch(dataset, created_at)`,
+
+  // ------------------------------------------------------------------
+  // 增长中枢 —— 以 SKU 为主线把运营串成一条自动化回流链：
+  //   选品研究 → 商品链接(上架生成/链接体检) → 达人建联 → 素材库 → 视频发布
+  // 广告 / 销售 / 库存数据回流复用 sales_daily / ads_daily / inventory，
+  // 在 growthService 里按 sku 聚合到每个 SKU 的链路上，不重复建表。
+  // ------------------------------------------------------------------
+  `CREATE TABLE IF NOT EXISTS sku_master (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, sku_code TEXT UNIQUE, name TEXT, category TEXT,
+    platforms TEXT, lifecycle TEXT DEFAULT '选品池', supplier TEXT,
+    cost REAL, target_price REAL, first_batch_qty INTEGER,
+    owner_note TEXT, created_at TEXT, updated_at TEXT)`,
+  `CREATE TABLE IF NOT EXISTS selection_research (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, sku_code TEXT, source TEXT,
+    sales_30d INTEGER, price REAL, rating REAL, review_count INTEGER,
+    keyword TEXT, competitor TEXT, trend TEXT, opportunity_score REAL,
+    verdict TEXT DEFAULT '待定', target_price REAL, note TEXT, created_at TEXT)`,
+  `CREATE INDEX IF NOT EXISTS idx_sel_sku ON selection_research(sku_code)`,
+  `CREATE TABLE IF NOT EXISTS listing_task (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, sku_code TEXT, platform TEXT, listing_id TEXT,
+    task_type TEXT DEFAULT '上架生成', title TEXT, description TEXT,
+    attrs_json TEXT, images_json TEXT, issues TEXT,
+    status TEXT DEFAULT '草稿', note TEXT, created_at TEXT, updated_at TEXT)`,
+  `CREATE INDEX IF NOT EXISTS idx_listing_sku ON listing_task(sku_code)`,
+  `CREATE TABLE IF NOT EXISTS material_asset (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, sku_code TEXT, type TEXT, title TEXT, content TEXT,
+    variant_count INTEGER DEFAULT 1, source TEXT DEFAULT '自动生成',
+    status TEXT DEFAULT '草稿', created_at TEXT)`,
+  `CREATE INDEX IF NOT EXISTS idx_material_sku ON material_asset(sku_code)`,
+  `CREATE TABLE IF NOT EXISTS influencer_deal (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, sku_code TEXT, influencer TEXT, platform TEXT,
+    region TEXT, tags TEXT, reach INTEGER, invite_msg TEXT, follow_up_date TEXT,
+    status TEXT DEFAULT '待建联', commission_note TEXT, contract_note TEXT,
+    created_at TEXT, updated_at TEXT)`,
+  `CREATE INDEX IF NOT EXISTS idx_infl_sku ON influencer_deal(sku_code)`,
+  `CREATE TABLE IF NOT EXISTS video_publish (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, sku_code TEXT, material_id INTEGER, platform TEXT,
+    schedule_at TEXT, title TEXT, tags TEXT, cart_draft TEXT,
+    status TEXT DEFAULT '待发布', views INTEGER DEFAULT 0, gmv REAL DEFAULT 0,
+    published_at TEXT, created_at TEXT)`,
+  `CREATE INDEX IF NOT EXISTS idx_video_sku ON video_publish(sku_code)`,
 ];
 
 /** 数据管道阶段定义（前端流程图与后端执行共用同一份口径） */

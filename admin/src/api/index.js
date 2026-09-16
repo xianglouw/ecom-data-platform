@@ -106,3 +106,14 @@ export const pipelineApi = {
   logs: params => unwrap(request.get('/pipeline/logs', { params })),
   snapshots: params => unwrap(request.get('/metrics/snapshots', { params })),
 };
+
+/** 增长中枢：SKU 主线（选品 → 链接 → 达人 → 素材 → 视频） */
+export const growthApi = {
+  meta: () => unwrap(request.get('/growth/meta')),
+  overview: params => unwrap(request.get('/growth/overview', { params })),
+  chain: code => unwrap(request.get(`/growth/sku/${encodeURIComponent(code)}/chain`)),
+  page: (module, params) => unwrap(request.get(`/growth/${module}/page`, { params })),
+  create: (module, data) => unwrap(request.post(`/growth/${module}`, data)),
+  update: (module, id, data) => unwrap(request.put(`/growth/${module}/${id}`, data)),
+  remove: (module, id) => unwrap(request.delete(`/growth/${module}/${id}`)),
+};

@@ -7,6 +7,7 @@ import { memberService, sysService } from '../service/memberService.js';
 import { opsService } from '../service/opsService.js';
 import { etlService } from '../service/etlService.js';
 import { authService } from '../service/authService.js';
+import { growthService } from '../service/growthService.js';
 import { mappers } from '../mapper/index.js';
 
 /** async 控制器包装：把 Promise 异常交给 Express 统一错误处理（Express 4 不会自动捕获） */
@@ -91,8 +92,21 @@ export const sysController = {
   rateRemove: (req, res) => res.json(R.ok(sysService.rateRemove(req.params.id))),
 };
 
-export const opsController = {
-  overview: (req, res) => res.json(R.ok(opsService.overview(req.query))),
+/** 增长中枢：以 SKU 为主线的运营自动化链路（选品 → 链接 → 达人 → 素材 → 视频） */
+export const growthController = {
+  meta: (req, res) => res.json(R.ok(growthService.meta())),
+  overview: (req, res) => res.json(R.ok(growthService.overview(req.query))),
+  chain: (req, res) => res.json(R.ok(growthService.chain(req.params.code))),
+  page: (req, res) => {
+    const r = growthService.page(req.params.module, req.query);
+    res.json(R.page(r.records, r.total, req.query.current || 1, req.query.size || 20));
+  },
+  create: (req, res) => res.json(R.ok(growthService.create(req.params.module, req.body))),
+  update: (req, res) => res.json(R.ok(growthService.update(req.params.module, req.params.id, req.body))),
+  remove: (req, res) => res.json(R.ok(growthService.remove(req.params.module, req.params.id))),
+};
+
+export const opsController = {  overview: (req, res) => res.json(R.ok(opsService.overview(req.query))),
   salesPage: (req, res) => {
     const r = opsService.salesPage(req.query);
     res.json(R.page(r.records, r.total, req.query.current || 1, req.query.size || 20));

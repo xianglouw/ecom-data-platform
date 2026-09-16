@@ -141,4 +141,11 @@ export const mappers = {
   job: new BaseMapper('etl_job'),
   jobLog: new BaseMapper('etl_job_log'),
   metric: new BaseMapper('metric_snapshot'),
+  // 增长中枢（SKU 主线：选品 → 链接 → 达人 → 素材 → 视频）
+  growthSku: new BaseMapper('sku_master'),
+  selection: new BaseMapper('selection_research'),
+  listing: new BaseMapper('listing_task'),
+  material: new BaseMapper('material_asset'),
+  influencer: new BaseMapper('influencer_deal'),
+  video: new BaseMapper('video_publish'),
 };

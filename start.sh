@@ -48,18 +48,15 @@ if [ ! -d node_modules ]; then npm install --no-audit --no-fund --cache /tmp/npm
 # 数据库：默认「空库起步」，不内置任何演示数据（平台只呈现你上传的表）。
 # 需要演示数据时改为：SEED_DEMO=1 ./start.sh
 
-# 关键：start_new_session=True 让进程脱离当前进程组/会话，
-# 关闭终端或脚本结束后服务依然存活（普通 nohup & 在部分环境会被回收）
-/usr/bin/python3 -c "
-import subprocess, os
-log = open('$LOG_FILE', 'a')
-p = subprocess.Popen(['$(command -v node)', 'src/app.js'],
-    cwd='$DIR/server', stdout=log, stderr=subprocess.STDOUT,
-    start_new_session=True,
-    env={**os.environ, 'NO_PROXY': '*'})
-open('$PID_FILE','w').write(str(p.pid))
-print('服务已启动 pid', p.pid)
-"
+# 后台启动：nohup + disown 让进程脱离当前 shell 会话，
+# 关闭终端或脚本结束后服务依然存活。
+# （此前用 /usr/bin/python3 的 subprocess 方案，在本机会因 Xcode 许可未同意而失败，
+#   故改为纯 shell 方式，零外部依赖。）
+nohup "$(command -v node)" src/app.js >> "$LOG_FILE" 2>&1 &
+PID=$!
+disown
+echo $PID > "$PID_FILE"
+echo "服务已启动 pid $PID"
 
 sleep 2
 if curl -s --noproxy '*' -o /dev/null -w "%{http_code}" http://127.0.0.1:8800/ | grep -q 200; then

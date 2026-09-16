@@ -3,6 +3,7 @@ import Layout from '../layout/index.vue';
 
 export const menuTree = [
   { path: '/dashboard', name: '运营看板', icon: 'DataLine', meta: { title: '运营看板' } },
+  { path: '/growth', name: '增长中枢', icon: 'Connection', meta: { title: '增长中枢' } },
   {
     path: '/mall', name: '商城管理', icon: 'Shop',
     children: [
@@ -49,6 +50,7 @@ const routes = [
     redirect: '/dashboard',
     children: [
       { path: 'dashboard', component: () => import('../views/Dashboard.vue'), meta: { title: '运营看板' } },
+      { path: 'growth', component: () => import('../views/growth/Center.vue'), meta: { title: '增长中枢' } },
       { path: 'product', component: () => import('../views/mall/ProductList.vue'), meta: { title: '商品管理' } },
       { path: 'order', component: () => import('../views/mall/OrderList.vue'), meta: { title: '订单管理' } },
       { path: 'order/finance', component: () => import('../views/order/Finance.vue'), meta: { title: '订单财务' } },
