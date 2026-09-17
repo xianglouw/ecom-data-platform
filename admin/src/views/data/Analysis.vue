@@ -142,15 +142,15 @@ const { el, render } = useChart(() => ({
   xAxis: {
     type: 'category',
     data: result.value?.chart.categories || [],
-    axisLabel: { rotate: (result.value?.chart.categories?.length || 0) > 5 ? 30 : 0, color: '#666' },
+    axisLabel: { rotate: (result.value?.chart.categories?.length || 0) > 5 ? 30 : 0, color: '#8B8B9E' },
   },
-  yAxis: { type: 'value', axisLabel: { color: '#666' } },
+  yAxis: { type: 'value', axisLabel: { color: '#8B8B9E' } },
   series: (result.value?.chart.series || []).map((s, i) => ({
     name: `${labelOf(s.name.slice(s.name.indexOf('(') + 1, -1))}·${aggName(s.name.slice(0, s.name.indexOf('(')))}`,
     type: i === 0 ? 'bar' : 'bar',
     data: s.data,
     barMaxWidth: 36,
-    itemStyle: { color: ['#409eff', '#67c23a', '#e6a23c', '#f56c6c'][i % 4] },
+    itemStyle: { color: ['#25F4EE', '#00E6A8', '#FFB020', '#FE2C55'][i % 4] },
   })),
 }));
 

@@ -69,16 +69,16 @@ onMounted(async () => {
   data.value = await opsApi.productDetail(sku, 60);
   await nextTick();
   const t = data.value.trend || [];
-  chart = echarts.init(trendEl.value);
+  chart = echarts.init(trendEl.value, 'tk');
   chart.setOption({
     tooltip: { trigger: 'axis' }, legend: { top: 0 },
     xAxis: { type: 'category', data: t.map(x => x.date.slice(5)) },
     yAxis: [{ type: 'value' }, { type: 'value', name: '销量', splitLine: { show: false } }],
     series: [
-      { name: 'GMV', type: 'line', smooth: true, data: t.map(x => x.gmv), itemStyle: { color: '#2563eb' }, areaStyle: { opacity: 0.1 } },
-      { name: '广告花费', type: 'line', smooth: true, data: t.map(x => x.spend), itemStyle: { color: '#f59e0b' } },
-      { name: '销量', type: 'bar', yAxisIndex: 1, data: t.map(x => x.units), itemStyle: { color: '#93c5fd' } },
-      { name: '退款', type: 'line', yAxisIndex: 1, smooth: true, data: t.map(x => x.refund), itemStyle: { color: '#dc2626' } },
+      { name: 'GMV', type: 'line', smooth: true, data: t.map(x => x.gmv), itemStyle: { color: '#25F4EE' }, areaStyle: { opacity: 0.1 } },
+      { name: '广告花费', type: 'line', smooth: true, data: t.map(x => x.spend), itemStyle: { color: '#FE2C55' } },
+      { name: '销量', type: 'bar', yAxisIndex: 1, data: t.map(x => x.units), itemStyle: { color: '#7C5CFF' } },
+      { name: '退款', type: 'line', yAxisIndex: 1, smooth: true, data: t.map(x => x.refund), itemStyle: { color: '#FE2C55' } },
     ],
   });
 });

@@ -89,7 +89,7 @@
           <el-table-column prop="daily_sales" label="日均销量" align="right" width="90" />
           <el-table-column prop="days_of_supply" label="可售天数" align="right" width="90">
             <template #default="{ row }">
-              <span :style="{ color: row.days_of_supply != null && row.days_of_supply < data.thresholds.low_days ? '#f56c6c' : '' }">
+              <span :style="{ color: row.days_of_supply != null && row.days_of_supply < data.thresholds.low_days ? '#FE2C55' : '' }">
                 {{ row.days_of_supply ?? '—' }}
               </span>
             </template>
@@ -177,7 +177,7 @@ const kpis = computed(() => {
     { label: '在途库存', value: fmt(k.inbound) },
     { label: '库存金额', value: fmt(k.stock_value) },
     { label: '可供天数', value: k.cover_days == null ? '—' : k.cover_days + ' 天' },
-    { label: '缺货 / 偏低', value: `${cnt('缺货')} / ${cnt('库存偏低')}`, color: cnt('缺货') ? '#f56c6c' : '' },
+    { label: '缺货 / 偏低', value: `${cnt('缺货')} / ${cnt('库存偏低')}`, color: cnt('缺货') ? '#FE2C55' : '' },
   ];
 });
 const sites = computed(() => [...new Set(data.value.records.map((r) => r.site).filter(Boolean))]);
@@ -196,10 +196,10 @@ const tagType = (t) => ({ 缺货: 'danger', 库存偏低: 'warning', 库龄偏�
 const { el, render } = useChart(() => ({
   tooltip: { trigger: 'axis' },
   grid: { left: 70, right: 20, top: 20, bottom: 40 },
-  xAxis: { type: 'category', data: (data.value.by_site || []).map((s) => s.name), axisLabel: { color: '#666' } },
-  yAxis: { type: 'value', axisLabel: { color: '#666' } },
+  xAxis: { type: 'category', data: (data.value.by_site || []).map((s) => s.name), axisLabel: { color: '#8B8B9E' } },
+  yAxis: { type: 'value', axisLabel: { color: '#8B8B9E' } },
   series: [{
-    type: 'bar', barMaxWidth: 40, itemStyle: { color: '#409eff' },
+    type: 'bar', barMaxWidth: 40, itemStyle: { color: '#25F4EE' },
     data: (data.value.by_site || []).map((s) => s.value),
     label: { show: true, position: 'top', formatter: (p) => Number(p.value).toLocaleString('zh-CN') },
   }],
