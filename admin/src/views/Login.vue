@@ -161,20 +161,14 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background:
-    radial-gradient(900px 520px at 14% 8%, rgba(37, 244, 238, .16), transparent 60%),
-    radial-gradient(780px 500px at 88% 90%, rgba(254, 44, 85, .16), transparent 60%),
-    var(--tk-bg);
+  background: linear-gradient(135deg, #e0f2fe, #eef2ff);
 }
 .login-card {
   width: 420px;
-  background: rgba(18, 18, 27, .88);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, .1);
-  border-radius: 18px;
+  background: #fff;
+  border-radius: 14px;
   padding: 30px 28px 24px;
-  box-shadow: 0 24px 70px -20px rgba(0, 0, 0, .9), 0 0 40px -18px rgba(37, 244, 238, .5);
+  box-shadow: 0 10px 40px rgba(15, 23, 42, 0.12);
 }
 .brand {
   display: flex;
@@ -185,13 +179,9 @@ onBeforeUnmount(() => {
 h2 {
   margin: 0;
   font-size: 18px;
-  background: linear-gradient(92deg, #fff 8%, var(--tk-cyan) 95%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 .muted {
-  color: var(--tk-text-3);
+  color: #64748b;
   font-size: 13px;
 }
 .code-row {

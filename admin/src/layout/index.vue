@@ -11,18 +11,18 @@
         </div>
         <el-scrollbar>
           <el-menu :default-active="activeMenu" router unique-opened :collapse="collapsed" :collapse-transition="false"
-            background-color="transparent" text-color="#a5a5b8" active-text-color="#25f4ee">
+            background-color="#1f2937" text-color="#c3cbd8" active-text-color="#ffffff">
             <template v-for="item in menuTree" :key="item.path">
               <el-sub-menu v-if="item.children" :index="item.path">
                 <template #title>
                   <el-icon><component :is="item.icon" /></el-icon><span>{{ item.name }}</span>
                 </template>
                 <el-menu-item v-for="c in item.children" :key="c.path" :index="c.path">
-                  <el-icon><component :is="c.icon" /></el-icon>{{ c.name }}
+                  <el-icon><component :is="c.icon" /></el-icon><span>{{ c.name }}</span>
                 </el-menu-item>
               </el-sub-menu>
               <el-menu-item v-else :index="item.path">
-                <el-icon><component :is="item.icon" /></el-icon>{{ item.name }}
+                <el-icon><component :is="item.icon" /></el-icon><span>{{ item.name }}</span>
               </el-menu-item>
             </template>
           </el-menu>
@@ -148,59 +148,57 @@ async function onCommand(cmd) {
 <style scoped>
 .header-left { display: flex; align-items: center; gap: 12px; }
 
-/* 折叠按钮：hover 发青光 */
+/* 侧边栏折叠按钮 */
 .collapse-btn {
   width: 32px;
   height: 32px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--tk-line);
-  background: transparent;
-  color: var(--tk-text-2);
-  border-radius: 9px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  color: #4b5563;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
-  transition: all .22s var(--tk-ease);
+  transition: all .2s ease;
 }
 .collapse-btn:hover {
-  color: var(--tk-cyan);
-  border-color: rgba(37, 244, 238, .45);
-  box-shadow: 0 0 14px -4px rgba(37, 244, 238, .7);
-  transform: translateY(-1px);
+  color: #2563eb;
+  border-color: #93c5fd;
+  background: #eff6ff;
 }
 
+/* 数据空间标签：浅蓝芯片 */
 .space-tag {
-  background: rgba(37, 244, 238, .1);
-  color: var(--tk-cyan);
-  border: 1px solid rgba(37, 244, 238, .25);
+  background: #eff6ff;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
 }
 
 /* 折叠态：收紧内边距，隐藏左侧指示条避免与 Element 折叠样式打架 */
 .aside.is-mini :deep(.el-menu-item),
 .aside.is-mini :deep(.el-sub-menu__title) { margin: 3px 8px; justify-content: center; }
-.aside.is-mini :deep(.el-menu-item.is-active::before) { display: none; }
 
-/* 空台引导横幅（霓虹风） */
+/* 空台引导横幅 */
 .empty-banner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  background: linear-gradient(115deg, rgba(37, 244, 238, .12), rgba(254, 44, 85, .08));
-  border: 1px solid rgba(37, 244, 238, .28);
-  border-left: 3px solid var(--tk-cyan);
-  border-radius: 12px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-left: 4px solid #3b82f6;
+  border-radius: 8px;
   padding: 14px 18px;
   margin-bottom: 14px;
-  box-shadow: 0 10px 30px -18px rgba(37, 244, 238, .5);
 }
 .empty-banner-text {
   display: flex;
   flex-direction: column;
   gap: 4px;
   font-size: 13px;
-  color: var(--tk-text);
+  color: #1e3a8a;
 }
-.empty-banner-text .muted { color: var(--tk-text-2); line-height: 1.7; }
+.empty-banner-text .muted { color: #475569; line-height: 1.7; }
 </style>

@@ -98,8 +98,8 @@ async function load() {
 }
 function renderScatter() {
   if (!scatterEl.value) return;
-  chart = chart || echarts.init(scatterEl.value, 'tk');
-  const colors = { 亏损: '#FE2C55', 观察: '#FE2C55', 可放量: '#00E6A8' };
+  chart = chart || echarts.init(scatterEl.value);
+  const colors = { 亏损: '#dc2626', 观察: '#f59e0b', 可放量: '#16a34a' };
   const rows = records.value.filter(r => r.roas != null);
   chart.setOption({
     tooltip: { formatter: p => `${p.data[3]}<br>花费 $${p.data[0].toFixed(2)}<br>ROAS ${p.data[1]}<br>保本 ${p.data[2]}` },
@@ -108,8 +108,8 @@ function renderScatter() {
     series: [{
       type: 'scatter', symbolSize: d => Math.max(14, Math.min(48, 8 + d[0] / 60)),
       data: rows.map(r => [r.spend, r.roas, r.breakeven_roas, r.campaign, r.status]),
-      itemStyle: { color: p => colors[p.data[4]] || '#25F4EE', opacity: 0.82 },
-      label: { show: true, position: 'top', formatter: p => p.data[3].slice(0, 14), fontSize: 10, color: '#A5A5B8' },
+      itemStyle: { color: p => colors[p.data[4]] || '#2563eb', opacity: 0.82 },
+      label: { show: true, position: 'top', formatter: p => p.data[3].slice(0, 14), fontSize: 10, color: '#4b5563' },
     }],
   }, true);
   chart.off('click');

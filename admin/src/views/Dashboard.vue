@@ -183,8 +183,8 @@ const finKpis = computed(() => {
   return [
     { label: '结算订单数', text: fmtNum(k.orders), sub: `销量 ${fmtNum(k.units)} 件 · ${k.sku_count} 个 SKU` },
     { label: `结算收入（${f.currency}）`, text: fmtMoney(k.revenue), sub: `≈ $${fmtNum(f.revenue_usd)}` },
-    { label: `净利润（${f.currency}）`, text: fmtMoney(k.profit), sub: `单均净利 ${fmtMoney(k.profit_per_order)} · ≈ $${fmtNum(f.profit_usd)}`, color: k.profit < 0 ? '#FE2C55' : undefined },
-    { label: '净利率', text: (k.margin_rate ?? '—') + '%', sub: `平台费率 ${k.fee_rate}%`, color: (k.margin_rate || 0) < 15 ? '#FE2C55' : undefined },
+    { label: `净利润（${f.currency}）`, text: fmtMoney(k.profit), sub: `单均净利 ${fmtMoney(k.profit_per_order)} · ≈ $${fmtNum(f.profit_usd)}`, color: k.profit < 0 ? '#d03050' : undefined },
+    { label: '净利率', text: (k.margin_rate ?? '—') + '%', sub: `平台费率 ${k.fee_rate}%`, color: (k.margin_rate || 0) < 15 ? '#d03050' : undefined },
     { label: '退款率', text: (k.refund_rate ?? '—') + '%', sub: `退款额 ${fmtMoney(Math.abs(k.refund))}` },
     { label: '广告单占比', text: (k.ad_order_rate ?? '—') + '%', sub: `广告单 ${fmtNum(k.ad_orders)} / ${fmtNum(k.orders)}` },
   ];
@@ -201,8 +201,8 @@ const invKpis = computed(() => {
     { label: '可售库存', text: fmt(k.available), sub: `在途 ${fmt(k.inbound)} · 预留 ${fmt(k.reserved)}` },
     { label: '库存金额', text: fmt(k.stock_value), sub: `仓储费 ${fmt(k.storage_fee)}` },
     { label: '可供天数', text: k.cover_days == null ? '—' : k.cover_days + ' 天', sub: '总库存 ÷ 日均销量' },
-    { label: '缺货 SKU', text: fmt(v.oos_skus), sub: '可售与总库存均为 0', color: v.oos_skus ? '#FE2C55' : undefined },
-    { label: '低库存 / 库龄超期', text: `${fmt(v.low_skus)} / ${fmt(v.aging_skus)}`, sub: `天数阈值 ${v.thresholds.low_days} / ${v.thresholds.slow_days}`, color: (v.low_skus || v.aging_skus) ? '#FFB020' : undefined },
+    { label: '缺货 SKU', text: fmt(v.oos_skus), sub: '可售与总库存均为 0', color: v.oos_skus ? '#d03050' : undefined },
+    { label: '低库存 / 库龄超期', text: `${fmt(v.low_skus)} / ${fmt(v.aging_skus)}`, sub: `天数阈值 ${v.thresholds.low_days} / ${v.thresholds.slow_days}`, color: (v.low_skus || v.aging_skus) ? '#e6a23c' : undefined },
   ];
 });
 
@@ -215,16 +215,16 @@ const adsKpis = computed(() => {
   return [
     { label: '广告花费', text: fmt(a.spend), sub: `${a.campaigns} 个活动` },
     { label: '广告销售额', text: fmt(a.ad_sales), sub: `订单 ${fmt(a.orders)}` },
-    { label: 'ROAS', text: a.roas == null ? '—' : a.roas, sub: '广告销售额 ÷ 花费', color: a.roas != null && a.roas < 1 ? '#FE2C55' : undefined },
+    { label: 'ROAS', text: a.roas == null ? '—' : a.roas, sub: '广告销售额 ÷ 花费', color: a.roas != null && a.roas < 1 ? '#d03050' : undefined },
     { label: 'ACOS', text: a.acos == null ? '—' : (a.acos * 100).toFixed(1) + '%', sub: '花费 ÷ 广告销售额' },
     { label: 'CPC', text: a.cpc == null ? '—' : a.cpc, sub: `CTR ${a.ctr == null ? '—' : (a.ctr * 100).toFixed(2) + '%'}` },
-    { label: '亏损活动', text: losing, sub: '花费 > 广告销售额', color: losing ? '#FE2C55' : undefined },
+    { label: '亏损活动', text: losing, sub: '花费 > 广告销售额', color: losing ? '#d03050' : undefined },
   ];
 });
 
 function renderFinSku() {
   if (!finSkuEl.value || !data.value.finance) return;
-  finSkuChart = finSkuChart || echarts.init(finSkuEl.value, 'tk');
+  finSkuChart = finSkuChart || echarts.init(finSkuEl.value);
   const top = data.value.finance.top_sku || [];
   finSkuChart.setOption({
     tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
@@ -233,8 +233,8 @@ function renderFinSku() {
     xAxis: { type: 'value' },
     yAxis: { type: 'category', data: top.map(x => x.sku).reverse(), axisLabel: { fontSize: 10, width: 90, overflow: 'truncate' } },
     series: [
-      { name: '收入', type: 'bar', data: top.map(x => x.revenue).reverse(), barMaxWidth: 12, itemStyle: { color: '#25F4EE', borderRadius: [0, 3, 3, 0] } },
-      { name: '净利', type: 'bar', data: top.map(x => x.profit).reverse(), barMaxWidth: 12, itemStyle: { color: '#00E6A8', borderRadius: [0, 3, 3, 0] } },
+      { name: '收入', type: 'bar', data: top.map(x => x.revenue).reverse(), barMaxWidth: 12, itemStyle: { color: '#2563eb', borderRadius: [0, 3, 3, 0] } },
+      { name: '净利', type: 'bar', data: top.map(x => x.profit).reverse(), barMaxWidth: 12, itemStyle: { color: '#16a34a', borderRadius: [0, 3, 3, 0] } },
     ],
   }, true);
   finSkuChart.off('click');
@@ -242,12 +242,12 @@ function renderFinSku() {
 }
 function renderFinCost() {
   if (!finCostEl.value || !data.value.finance) return;
-  finCostChart = finCostChart || echarts.init(finCostEl.value, 'tk');
+  finCostChart = finCostChart || echarts.init(finCostEl.value);
   const cs = data.value.finance.cost_structure || [];
   finCostChart.setOption({
     tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
     series: [{ type: 'pie', radius: ['42%', '70%'], data: cs.map(x => ({ name: x.name, value: x.value })),
-      label: { formatter: '{b}\n{d}%' }, itemStyle: { borderRadius: 6, borderColor: '#12121B', borderWidth: 2 } }],
+      label: { formatter: '{b}\n{d}%' }, itemStyle: { borderRadius: 6, borderColor: '#fff', borderWidth: 2 } }],
   }, true);
   finCostChart.off('click');
   finCostChart.on('click', p => router.push('/order/finance'));
@@ -264,7 +264,7 @@ const kpis = computed(() => {
       up = invert ? d > 0 : d < 0 ? false : true;
       up = invert ? d > 0 : d < 0;
     }
-    return { label, text, prev: prevText, delta, up, color: key === 'profit' && cur < 0 ? '#FE2C55' : '' };
+    return { label, text, prev: prevText, delta, up, color: key === 'profit' && cur < 0 ? '#dc2626' : '' };
   };
   return [
     mk('GMV', 'gmv', fmtMoney(k.gmv), fmtMoney(p.gmv)),
@@ -280,17 +280,17 @@ const kpis = computed(() => {
 
 function renderTrend() {
   if (!trendEl.value) return;
-  trendChart = trendChart || echarts.init(trendEl.value, 'tk');
+  trendChart = trendChart || echarts.init(trendEl.value);
   const t = data.value.trend || [];
   trendChart.setOption({
     tooltip: { trigger: 'axis' }, legend: { top: 0 }, grid: { left: 55, right: 20, top: 36, bottom: 28 },
     xAxis: { type: 'category', data: t.map(x => x.date.slice(5)) },
     yAxis: [{ type: 'value', name: '金额' }, { type: 'value', name: '净利', splitLine: { show: false } }],
     series: [
-      { name: 'GMV', type: 'bar', data: t.map(x => x.gmv), itemStyle: { color: '#25F4EE', borderRadius: [3, 3, 0, 0] } },
-      { name: '广告销售额', type: 'line', smooth: true, data: t.map(x => x.ad_sales), itemStyle: { color: '#FE2C55' } },
+      { name: 'GMV', type: 'bar', data: t.map(x => x.gmv), itemStyle: { color: '#2563eb', borderRadius: [3, 3, 0, 0] } },
+      { name: '广告销售额', type: 'line', smooth: true, data: t.map(x => x.ad_sales), itemStyle: { color: '#f59e0b' } },
       { name: '净利', type: 'line', yAxisIndex: 1, smooth: true, data: t.map(x => x.profit),
-        itemStyle: { color: '#00E6A8' }, areaStyle: { opacity: 0.08 } },
+        itemStyle: { color: '#16a34a' }, areaStyle: { opacity: 0.08 } },
     ],
   }, true);
   trendChart.off('click');
@@ -298,25 +298,25 @@ function renderTrend() {
 }
 function renderPie() {
   if (!pieEl.value) return;
-  pieChart = pieChart || echarts.init(pieEl.value, 'tk');
+  pieChart = pieChart || echarts.init(pieEl.value);
   pieChart.setOption({
     tooltip: { trigger: 'item', formatter: '{b}: ${c} ({d}%)' },
     series: [{ type: 'pie', radius: ['42%', '70%'], data: (data.value.platform || []).map(x => ({ name: x.name, value: x.gmv })),
-      label: { formatter: '{b}\n{d}%' }, itemStyle: { borderRadius: 6, borderColor: '#12121B', borderWidth: 2 } }],
+      label: { formatter: '{b}\n{d}%' }, itemStyle: { borderRadius: 6, borderColor: '#fff', borderWidth: 2 } }],
   }, true);
   pieChart.off('click');
   pieChart.on('click', p => router.push({ path: '/ops/sales', query: { platform: p.name } }));
 }
 function renderTop() {
   if (!topEl.value) return;
-  topChart = topChart || echarts.init(topEl.value, 'tk');
+  topChart = topChart || echarts.init(topEl.value);
   const top = data.value.top_products || [];
   topChart.setOption({
     tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
     grid: { left: 80, right: 40, top: 8, bottom: 22 },
     xAxis: { type: 'value' }, yAxis: { type: 'category', data: top.map(x => x.sku).reverse() },
     series: [{ type: 'bar', data: top.map(x => x.gmv).reverse(), barMaxWidth: 16,
-      itemStyle: { color: '#25F4EE', borderRadius: [0, 4, 4, 0] },
+      itemStyle: { color: '#2563eb', borderRadius: [0, 4, 4, 0] },
       label: { show: true, position: 'right', formatter: p => fmtMoney(p.value) } }],
   }, true);
   topChart.off('click');

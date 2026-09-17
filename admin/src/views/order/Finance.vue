@@ -160,8 +160,8 @@ const kpis = computed(() => {
   return [
     { label: '订单数', text: fmtNum(s.orders), sub: `销量 ${fmtNum(s.units)} 件` },
     { label: '总收入', text: fmtMoney(s.revenue), sub: `客单价 ${fmtMoney(s.aov)}` },
-    { label: '净利润', text: fmtMoney(s.profit), sub: `单均净利 ${fmtMoney(s.profit_per_order)}`, color: s.profit < 0 ? '#FE2C55' : undefined },
-    { label: '净利率', text: (s.margin_rate ?? '—') + '%', sub: `平台费率 ${s.fee_rate}%`, color: (s.margin_rate || 0) < 15 ? '#FE2C55' : undefined },
+    { label: '净利润', text: fmtMoney(s.profit), sub: `单均净利 ${fmtMoney(s.profit_per_order)}`, color: s.profit < 0 ? '#d03050' : undefined },
+    { label: '净利率', text: (s.margin_rate ?? '—') + '%', sub: `平台费率 ${s.fee_rate}%`, color: (s.margin_rate || 0) < 15 ? '#d03050' : undefined },
     { label: '退款率', text: (s.refund_rate ?? '—') + '%', sub: `退款额 ${fmtMoney(s.refund)}` },
     { label: '广告单占比', text: (s.ad_order_rate ?? '—') + '%', sub: `广告单 ${fmtNum(s.ad_orders)} / ${fmtNum(s.orders)}` },
   ];
@@ -192,8 +192,8 @@ const { el: skuEl, render: renderSkuChart } = useChart(() => {
     xAxis: { type: 'value', axisLabel: { fontSize: 10 } },
     yAxis: { type: 'category', data: top.map(r => r.sku), axisLabel: { fontSize: 11 } },
     series: [
-      { name: '总收入', type: 'bar', barWidth: 9, itemStyle: { color: '#25F4EE', borderRadius: [0, 3, 3, 0] }, data: top.map(r => r.revenue) },
-      { name: '净利润', type: 'bar', barWidth: 9, itemStyle: { color: '#00E6A8', borderRadius: [0, 3, 3, 0] }, data: top.map(r => r.profit) },
+      { name: '总收入', type: 'bar', barWidth: 9, itemStyle: { color: '#409eff', borderRadius: [0, 3, 3, 0] }, data: top.map(r => r.revenue) },
+      { name: '净利润', type: 'bar', barWidth: 9, itemStyle: { color: '#67c23a', borderRadius: [0, 3, 3, 0] }, data: top.map(r => r.profit) },
     ],
   };
 }, p => {
@@ -207,12 +207,12 @@ const { el: waterEl, render: renderWater } = useChart(() => {
   const s = stats.value;
   if (!s.revenue) return { xAxis: { data: [] }, yAxis: {}, series: [] };
   const steps = [
-    { name: '总收入', v: s.revenue, color: '#25F4EE' },
-    { name: '佣金', v: s.commission, color: '#FFB020' },
-    { name: '附加费', v: s.surcharge, color: '#FFB020' },
-    { name: '运费', v: s.shipping, color: '#FFB020' },
-    { name: '退款', v: s.refund, color: '#FE2C55' },
-    { name: '净利润', v: s.profit, color: '#00E6A8' },
+    { name: '总收入', v: s.revenue, color: '#409eff' },
+    { name: '佣金', v: s.commission, color: '#e6a23c' },
+    { name: '附加费', v: s.surcharge, color: '#e6a23c' },
+    { name: '运费', v: s.shipping, color: '#e6a23c' },
+    { name: '退款', v: s.refund, color: '#f56c6c' },
+    { name: '净利润', v: s.profit, color: '#67c23a' },
   ];
   let acc = 0;
   const data = steps.map((st, i) => {
