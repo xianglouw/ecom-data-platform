@@ -15,33 +15,37 @@
 
 ## 📷 产品展示
 
+**增长中枢** —— 以 SKU 为主线把选品 / 上架 / 达人 / 素材 / 视频串成一条链路，销售·广告·库存数据自动回流，一屏看清每个品卡在哪个环节
+
+![增长中枢](docs/images/01-growth.jpg)
+
 **运营看板** —— KPI 环比、GMV/广告/净利趋势、平台占比、全站告警，图表点击下钻
 
-![运营看板](docs/images/01-dashboard.jpg)
+![运营看板](docs/images/02-dashboard.jpg)
 
 **广告投放** —— 花费 vs ROAS 气泡图，保本 ROAS 自动判定（可放量 / 观察 / 亏损）
 
-![广告投放](docs/images/02-ads.jpg)
+![广告投放](docs/images/03-ads.jpg)
 
 **库存管理** —— 缺货 / 库存偏低 / 滞销积压 / 库龄偏大自动预警，阈值可随时调整并自动重算
 
-![库存管理](docs/images/03-inventory.jpg)
+![库存管理](docs/images/04-inventory.jpg)
 
 **选品测算** —— 按站点测算净利 / 保本价 / 目标价，亏损标红并给出提价建议
 
-![选品测算](docs/images/04-selection.jpg)
+![选品测算](docs/images/05-selection.jpg)
 
 **复盘周报** —— 环比告警、平台对比、亏损活动清单（判定与依据给到人，落地由人执行）
 
-![复盘周报](docs/images/05-review.jpg)
+![复盘周报](docs/images/06-review.jpg)
 
 **订单结算财务** —— 收入构成瀑布、SKU 盈利汇总、退款率/佣金率口径透明
 
-![订单财务](docs/images/06-order-finance.jpg)
+![订单财务](docs/images/07-order-finance.jpg)
 
 **数据上传** —— CSV/Excel 上传即清洗入库：表头别名归一、脏数字解析、隔离行可追溯
 
-![数据上传](docs/images/07-upload.jpg)
+![数据上传](docs/images/08-upload.jpg)
 
 ## 🚀 快速开始
 
