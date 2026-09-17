@@ -1,17 +1,17 @@
 <template>
   <div class="app-wrapper">
     <el-container>
-      <el-aside width="220px" class="aside">
+      <el-aside :width="collapsed ? '68px' : '220px'" class="aside" :class="{ 'is-mini': collapsed }">
         <div class="logo">
-          <span class="logo-mark">M</span>
-          <div class="logo-text">
+          <BrandLogo :size="34" />
+          <div class="logo-text" v-show="!collapsed">
             <b>Mall Ops</b>
-            <small>电商运营后台</small>
+            <small>跨境电商数据中台</small>
           </div>
         </div>
         <el-scrollbar>
-          <el-menu :default-active="activeMenu" router unique-opened background-color="#1f2937"
-            text-color="#c3cbd8" active-text-color="#ffffff">
+          <el-menu :default-active="activeMenu" router unique-opened :collapse="collapsed" :collapse-transition="false"
+            background-color="transparent" text-color="#a5a5b8" active-text-color="#25f4ee">
             <template v-for="item in menuTree" :key="item.path">
               <el-sub-menu v-if="item.children" :index="item.path">
                 <template #title>
@@ -28,15 +28,21 @@
           </el-menu>
         </el-scrollbar>
       </el-aside>
+
       <el-container>
         <el-header height="56px" class="header">
-          <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/dashboard' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item v-if="parentName">{{ parentName }}</el-breadcrumb-item>
-            <el-breadcrumb-item>{{ route.meta.title }}</el-breadcrumb-item>
-          </el-breadcrumb>
+          <div class="header-left">
+            <button class="collapse-btn" @click="toggleCollapse" :aria-label="collapsed ? '展开菜单' : '收起菜单'">
+              <el-icon><component :is="collapsed ? 'Expand' : 'Fold'" /></el-icon>
+            </button>
+            <el-breadcrumb separator="/">
+              <el-breadcrumb-item :to="{ path: '/dashboard' }">首页</el-breadcrumb-item>
+              <el-breadcrumb-item v-if="parentName">{{ parentName }}</el-breadcrumb-item>
+              <el-breadcrumb-item>{{ route.meta.title }}</el-breadcrumb-item>
+            </el-breadcrumb>
+          </div>
           <div class="header-right">
-            <el-tag size="small" type="success">数据空间：{{ mobileMask }}</el-tag>
+            <el-tag size="small" class="space-tag">数据空间：{{ mobileMask }}</el-tag>
             <el-dropdown @command="onCommand">
               <span class="user">
                 <el-icon><User /></el-icon> {{ username }}
@@ -51,6 +57,7 @@
             </el-dropdown>
           </div>
         </el-header>
+
         <el-main class="main">
           <!-- 空台引导：账号还没有任何数据时，所有页面顶部提示下一步该做什么 -->
           <div v-if="isEmpty" class="empty-banner">
@@ -65,8 +72,9 @@
           </div>
 
           <router-view v-slot="{ Component }">
-            <keep-alive><component :is="Component" v-if="$route.meta.keepAlive" /></keep-alive>
-            <component :is="Component" v-if="!$route.meta.keepAlive" />
+            <transition name="fade-slide" mode="out-in">
+              <component :is="Component" :key="route.path" />
+            </transition>
           </router-view>
         </el-main>
       </el-container>
@@ -80,6 +88,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus';
 import { menuTree } from '../router/index.js';
 import { authApi } from '../api/index.js';
+import BrandLogo from '../components/BrandLogo.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -90,6 +99,13 @@ const username = computed(() => nickname.value || mobile.value || '未登录');
 const mobileMask = computed(() =>
   mobile.value ? mobile.value.replace(/^(\d{3})\d{4}(\d{4})$/, '$1****$2') : '未知账号'
 );
+
+/** 侧边栏折叠状态，写入本地存储以便下次进入保持习惯 */
+const collapsed = ref(localStorage.getItem('asideCollapsed') === '1');
+function toggleCollapse() {
+  collapsed.value = !collapsed.value;
+  localStorage.setItem('asideCollapsed', collapsed.value ? '1' : '0');
+}
 
 /** 当前账号是否还没有任何业务数据（空台） */
 const isEmpty = ref(false);
@@ -130,28 +146,61 @@ async function onCommand(cmd) {
 </script>
 
 <style scoped>
-/* 空台引导横幅 */
+.header-left { display: flex; align-items: center; gap: 12px; }
+
+/* 折叠按钮：hover 发青光 */
+.collapse-btn {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--tk-line);
+  background: transparent;
+  color: var(--tk-text-2);
+  border-radius: 9px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all .22s var(--tk-ease);
+}
+.collapse-btn:hover {
+  color: var(--tk-cyan);
+  border-color: rgba(37, 244, 238, .45);
+  box-shadow: 0 0 14px -4px rgba(37, 244, 238, .7);
+  transform: translateY(-1px);
+}
+
+.space-tag {
+  background: rgba(37, 244, 238, .1);
+  color: var(--tk-cyan);
+  border: 1px solid rgba(37, 244, 238, .25);
+}
+
+/* 折叠态：收紧内边距，隐藏左侧指示条避免与 Element 折叠样式打架 */
+.aside.is-mini :deep(.el-menu-item),
+.aside.is-mini :deep(.el-sub-menu__title) { margin: 3px 8px; justify-content: center; }
+.aside.is-mini :deep(.el-menu-item.is-active::before) { display: none; }
+
+/* 空台引导横幅（霓虹风） */
 .empty-banner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
-  border-left: 4px solid #3b82f6;
-  border-radius: 8px;
+  background: linear-gradient(115deg, rgba(37, 244, 238, .12), rgba(254, 44, 85, .08));
+  border: 1px solid rgba(37, 244, 238, .28);
+  border-left: 3px solid var(--tk-cyan);
+  border-radius: 12px;
   padding: 14px 18px;
   margin-bottom: 14px;
+  box-shadow: 0 10px 30px -18px rgba(37, 244, 238, .5);
 }
 .empty-banner-text {
   display: flex;
   flex-direction: column;
   gap: 4px;
   font-size: 13px;
-  color: #1e3a8a;
+  color: var(--tk-text);
 }
-.empty-banner-text .muted {
-  color: #475569;
-  line-height: 1.7;
-}
+.empty-banner-text .muted { color: var(--tk-text-2); line-height: 1.7; }
 </style>

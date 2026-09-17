@@ -2,7 +2,7 @@
   <div class="login-page">
     <div class="login-card">
       <div class="brand">
-        <span class="mark">M</span>
+        <BrandLogo :size="46" />
         <div>
           <h2>电商运营数据中台</h2>
           <p class="muted">手机号 + 验证码 · 每个账号拥有独立的数据空间</p>
@@ -63,6 +63,7 @@ import { onBeforeUnmount, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus';
 import { authApi } from '../api/index.js';
+import BrandLogo from '../components/BrandLogo.vue';
 
 const router = useRouter();
 const mode = ref('login');
@@ -160,14 +161,20 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #e0f2fe, #eef2ff);
+  background:
+    radial-gradient(900px 520px at 14% 8%, rgba(37, 244, 238, .16), transparent 60%),
+    radial-gradient(780px 500px at 88% 90%, rgba(254, 44, 85, .16), transparent 60%),
+    var(--tk-bg);
 }
 .login-card {
   width: 420px;
-  background: #fff;
-  border-radius: 14px;
+  background: rgba(18, 18, 27, .88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 18px;
   padding: 30px 28px 24px;
-  box-shadow: 0 10px 40px rgba(15, 23, 42, 0.12);
+  box-shadow: 0 24px 70px -20px rgba(0, 0, 0, .9), 0 0 40px -18px rgba(37, 244, 238, .5);
 }
 .brand {
   display: flex;
@@ -175,24 +182,16 @@ onBeforeUnmount(() => {
   align-items: center;
   margin-bottom: 16px;
 }
-.mark {
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #2563eb, #38bdf8);
-  color: #fff;
-  font-size: 20px;
-  font-weight: 700;
-}
 h2 {
   margin: 0;
   font-size: 18px;
+  background: linear-gradient(92deg, #fff 8%, var(--tk-cyan) 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .muted {
-  color: #64748b;
+  color: var(--tk-text-3);
   font-size: 13px;
 }
 .code-row {
